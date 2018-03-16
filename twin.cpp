@@ -9,6 +9,7 @@
  *
  *  n ≤ 110000, m ≤ 1000.
 */
+#define ERROR -1
 
 #include <iostream>
 
@@ -28,9 +29,9 @@ int main() {
 
     for (int i = 0; i < m; i++) {
         int result = findTwinIndx(A, 0, n-1, B[i]);
+        if (result == ERROR) break;
         cout << result << " ";
     }
-    cout << endl;
 
     delete [] A;
     delete [] B;
@@ -39,6 +40,12 @@ int main() {
 }
 
 int findTwinIndx(int *arr, int l, int r, int pivot) {
+    if ((!arr) ||
+        (l > r) ||
+        (l < 0) ||
+        (r < 0)
+    ) return ERROR;
+
     if (l == r) return l;
     else if (l + 1 == r) {
     // здесь и далее: diff - разница между элементом и искомым числом
