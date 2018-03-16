@@ -1,3 +1,15 @@
+/*
+ *  2.4 Поиск близнеца
+ * 
+ *  Дан отсортированный массив различных целых чисел 
+ *  A[0..n-1] и массив целых чисел B[0..m-1].
+ *  Для каждого элемента массива B[i] найдите 
+ *  минимальный индекс элемента массива A[k],
+ *  ближайшего по значению к B[i].
+ *
+ *  n ≤ 110000, m ≤ 1000.
+*/
+
 #include <iostream>
 
 using namespace std;
@@ -7,11 +19,11 @@ int findTwinIndx(int *, int, int, int);
 int main() {
     int n, m;
     cin >> n;
-    int *A = new int [n];
+    int *A = new int[n];
     for (int i = 0; i < n; i++) cin >> A[i];
-    
+
     cin >> m;
-    int *B = new int [m];
+    int *B = new int[m];
     for (int i = 0; i < m; i++) cin >> B[i];
 
     for (int i = 0; i < m; i++) {
@@ -49,7 +61,7 @@ int findTwinIndx(int *arr, int l, int r, int pivot) {
     newDiff = arr[newIndx] - pivot;
     if (abs(newDiff) == abs(diff)) {
         if (newIndx < middle) return newIndx;
-    } else if (abs(newDiff) < abs(diff)) { 
+    } else if (abs(newDiff) < abs(diff)) {
         return newIndx;
     }
     return middle;
