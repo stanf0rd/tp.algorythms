@@ -36,7 +36,7 @@ class Deque {
         T popFront();
         T popBack();
         bool isEmpty();
-        void printAll();
+        // void printAll();
     private:
         int head;
         int tail;
@@ -48,7 +48,7 @@ class Deque {
 };
 
 template <typename T>
-Deque<T>::Deque() : 
+Deque<T>::Deque() :
     head(-1),
     tail(-1),
     size(0),
@@ -171,7 +171,7 @@ bool Deque<T>::isEmpty() {
     return (head == -1) && (tail == -1);
 }
 
-template <typename T>
+/* template <typename T>
 void Deque<T>::printAll() {
     if (head >= tail) {
         for (int i = tail; i <= head; i++) {
@@ -185,7 +185,7 @@ void Deque<T>::printAll() {
     }
 
     cout << endl;
-}
+} */
 
 bool testDeque(short *funcArr, int *valArr, int opCount) {
     Deque <int> deque;
@@ -198,7 +198,7 @@ bool testDeque(short *funcArr, int *valArr, int opCount) {
         case 2:
             try {
                 value = deque.popFront();
-            } catch (length_error) {
+            } catch(length_error) {
                 value = -1;
             }
             if (value != valArr[i]) return 0;
@@ -209,7 +209,7 @@ bool testDeque(short *funcArr, int *valArr, int opCount) {
         case 4:
             try {
                 value = deque.popBack();
-            } catch (length_error) {
+            } catch(length_error) {
                 value = -1;
             }
             if (value != valArr[i]) return 0;
@@ -233,7 +233,7 @@ int main() {
         cin >> valArr[i];
     }
 
-    if (testDeque(funcArr, valArr, opCount)) { 
+    if (testDeque(funcArr, valArr, opCount)) {
         cout << "YES" << endl;
     } else {
         cout << "NO" << endl;
