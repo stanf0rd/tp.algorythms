@@ -187,60 +187,53 @@ void Deque<T>::printAll() {
     cout << endl;
 } */
 
-bool testDeque(short *funcArr, int *valArr, int opCount) {
-    Deque <int> deque;
+bool testDeque(Deque<int> &deque, short func, int val) {
     int value = 0;
-    for (int i = 0; i < opCount; i++) {
-        switch (funcArr[i]) {
-        case 1:
-            deque.pushFront(valArr[i]);
-            break;
-        case 2:
-            try {
-                value = deque.popFront();
-            } catch(length_error) {
-                value = -1;
-            }
-            if (value != valArr[i]) return 0;
-            break;
-        case 3:
-            deque.pushBack(valArr[i]);
-            break;
-        case 4:
-            try {
-                value = deque.popBack();
-            } catch(length_error) {
-                value = -1;
-            }
-            if (value != valArr[i]) return 0;
-            break;
+    switch (func) {
+    case 1:
+        deque.pushFront(val);
+        break;
+    case 2:
+        try {
+            value = deque.popFront();
+        } catch (length_error) {
+            value = -1;
+        }
+        if (value != val) return 0;
+        break;
+    case 3:
+        deque.pushBack(val);
+        break;
+    case 4:
+        try {
+            value = deque.popBack();
+        } catch (length_error) {
+            value = -1;
+        }
+        if (value != val) return 0;
+        break;
         }
         // deque.printAll();
-    }
     return 1;
 }
 
 int main() {
+    Deque <int> deque;
+
     int opCount = 0;
+    short func = 0;
+    int val = 0;
 
     cin >> opCount;
 
-    short *funcArr = new short[opCount];
-    int *valArr = new int[opCount];
-
     for (int i = 0; i < opCount; i++) {
-        cin >> funcArr[i];
-        cin >> valArr[i];
+        cin >> func >> val;
+        if (!testDeque(deque, func, val)) { 
+            cout << "NO" << endl;
+            return 0;
+        }
     }
 
-    if (testDeque(funcArr, valArr, opCount)) {
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
-
-    delete [] funcArr;
-    delete [] valArr;
-
+    cout << "YES" << endl;
     return 0;
 }
