@@ -31,6 +31,7 @@ float countArea(int *xArr, int *yArr, int dotCount) {
         x3 = xArr[2], y3 = yArr[2];
 
     float area = 0;
+    // i = 3, потому что первые 3 точки уже считаны
     for (int i = 3; i <= dotCount; i++) {
         area += count3angleArea(x1, y1, x2, y2, x3, y3);
         x2 = x3;
