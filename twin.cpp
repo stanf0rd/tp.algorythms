@@ -10,6 +10,7 @@
  *  n ≤ 110000, m ≤ 1000.
 */
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
