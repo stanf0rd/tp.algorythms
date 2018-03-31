@@ -1,5 +1,4 @@
-/*
- *  2.4 Поиск близнеца
+/*  2.4 Поиск близнеца
  * 
  *  Дан отсортированный массив различных целых чисел 
  *  A[0..n-1] и массив целых чисел B[0..m-1].
@@ -9,65 +8,51 @@
  *
  *  n ≤ 110000, m ≤ 1000.
 */
+
 #include <iostream>
-#include <cassert>
 
 using namespace std;
 
-int findTwinIndx(int *, int, int, int);
+void findTwinIndx(int *A, int *B, int aSize, int bSize) {
+    for (int i = 0; i < bSize; i++) {
+        int pivot = B[i];
+        int j = 1, left = 0, right = aSize - 1;
+        while(1) {
+            if (right - left <= 1) {
+                if (abs(A[left] - pivot) <= abs(A[right] - pivot))
+                    cout << left << " ";
+                else cout << right << " ";
+                break;
+            }
+            if (A[left + j] >= pivot) {
+                right = left + j;
+                left += j/2;
+                j = 1;
+            } else if (left + j*2 > right) {
+                left += j;
+                j = 1;
+            } else {
+                j *= 2;
+            }
+        }
+    }
+    cout << endl;
+}
 
 int main() {
-    int n, m;
-    cin >> n;
-    int *A = new int[n];
-    for (int i = 0; i < n; i++) cin >> A[i];
+    int aSize, bSize;
+    cin >> aSize;
+    int *A = new int[aSize];
+    for (int i = 0; i < aSize; i++) cin >> A[i];
 
-    cin >> m;
-    int *B = new int[m];
-    for (int i = 0; i < m; i++) cin >> B[i];
+    cin >> bSize;
+    int *B = new int[bSize];
+    for (int i = 0; i < bSize; i++) cin >> B[i];
 
-    for (int i = 0; i < m; i++) {
-        cout << findTwinIndx(A, 0, n-1, B[i]) << " ";
-    }
-
-    cout << endl;
+    findTwinIndx(A, B, aSize, bSize);
 
     delete [] A;
     delete [] B;
 
     return 0;
-}
-
-int findTwinIndx(int *arr, int l, int r, int pivot) {
-    assert(arr);
-    assert(r >= l);
-    assert(l >= 0);
-    assert(r >= 0);
-
-    if (l == r) return l;
-    else if (l + 1 == r) {
-    // здесь и далее: diff - разница между элементом и искомым числом
-        int lDiff = abs(arr[l] - pivot);
-        int rDiff = abs(arr[r] - pivot);
-        if (lDiff <= rDiff) return l;
-        else return r;
-    }
-    int size = r - l,
-        middle = l + size/2,
-        diff = arr[middle] - pivot,
-        newIndx = 0, newDiff = 0;
-    if (!diff) {
-        return middle;
-    } else if (diff > 0) {
-        newIndx = findTwinIndx(arr, l, middle, pivot);
-    } else {
-        newIndx = findTwinIndx(arr, middle + 1, r, pivot);
-    }
-    newDiff = arr[newIndx] - pivot;
-    if (abs(newDiff) == abs(diff)) {
-        if (newIndx < middle) return newIndx;
-    } else if (abs(newDiff) < abs(diff)) {
-        return newIndx;
-    }
-    return middle;
 }
